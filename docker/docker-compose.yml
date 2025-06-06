@@ -1,0 +1,21 @@
+services:
+  node:
+    build:
+      context: ..
+      dockerfile: docker/node/Dockerfile
+    image: syniol_node:22
+    container_name: nestjs_node
+    tty: true
+    environment:
+      NODE_ENV: development
+    working_dir: /var/local/app
+    ports:
+      - 3000:3000
+    volumes:
+      - ../:/var/local/app
+    networks:
+      - default_nestjs_syniol_net
+
+networks:
+  default_nestjs_syniol_net:
+    driver: bridge
