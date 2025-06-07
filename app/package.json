@@ -2,7 +2,7 @@
   "name": "app",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Hadi Tajallaei from Syniol Limited <hadi@syniol.com>",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
