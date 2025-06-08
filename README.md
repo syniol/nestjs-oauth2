@@ -19,6 +19,16 @@ npm i nestjs-zod zod
 ```
 
 
+## Database ORM for Postgres
+
+```bash
+npm install nestjs-knex knex pq --save
+npx knex init -x ts
+npx knex migrate:make <migration_name> -x ts
+npx knex seed:make <seed_name> -x ts
+```
+
+
 ## Health Check
 todo: add info about health endpoint
 ```bash
