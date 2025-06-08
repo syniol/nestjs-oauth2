@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core'
-import { AppModule } from './app.module'
 import { ZodValidationPipe } from 'nestjs-zod'
+import { AppModule } from './app.module'
 
 (async () => {
   const app = await NestFactory.create(AppModule)
