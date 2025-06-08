@@ -1,14 +1,7 @@
 import { NestFactory } from '@nestjs/core'
-import { Module } from '@nestjs/common'
-import { HealthModule } from './health/health.module'
-import { AuthModule } from './auth/auth.module'
+import { AppModule } from './app.module'
 
-@Module({
-  imports: [HealthModule, AuthModule],
-})
-class AppModule {}
-
-;(async () => {
+(async () => {
   const app = await NestFactory.create(AppModule)
 
   await app.listen(process.env.PORT ?? 3000)
