@@ -52,9 +52,11 @@ __Response Example:__
 ### Todos
  * [X] Produce and return a dummy response for now and remove `void` as a return type
  * [X] Validate the input with Zod or create a value object or a combination of both
- * [ ] Create a new module "Cache" and later link it to redis container
- * [ ] create a new module "Users" and create a database container
+ * [X] Create a new module "Users"
+ * [ ] Create a database container for postgres
  * [ ] Finalise ORM/ODM to use for Database Access Abstraction layer
+ * [ ] Create a new module "Cache"
+ * [ ] Create a redis container
 
 
 ##### Credits
