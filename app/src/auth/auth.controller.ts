@@ -1,4 +1,4 @@
-import { Body, Controller, Header, HttpCode, HttpStatus, Logger, Post } from '@nestjs/common'
+import { Body, Controller, Header, Logger, Post } from '@nestjs/common'
 import { AuthTokenResponse } from './dto/auth-token-response.dto'
 import { TokenService } from './token.service'
 import { AuthTokenRequest } from './dto/auth-token-request.dto'
@@ -21,6 +21,6 @@ export class AuthController {
       'requested a new token for authentication via: POST /auth/token',
     )
 
-    return this.tokeService.handleGetToken()
+    return this.tokeService.createToken()
   }
 }

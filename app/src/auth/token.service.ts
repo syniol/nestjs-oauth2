@@ -8,7 +8,7 @@ export class TokenService {
   private static readonly SecondsInMinute = 60
   private static readonly MinutesInHour = 60
 
-  public handleGetToken(): AuthTokenResponse {
+  public createToken(): AuthTokenResponse {
     // todo: store this in a cache
     return {
       access_token: randomBytes(TokenService.DefaultTokenByteSize).toString('base64'),
