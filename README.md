@@ -11,6 +11,14 @@ nest new app
 It creates a new folder named `app` with all example files and an endpoint `/` with `GET` method for Hello World message.
 
 
+## Data Transfer Objects (DTO) Validation
+In order to validate the incoming requests we use Zod and its extension for NestJS. Please [read more here](https://www.npmjs.com/package/nestjs-zod).
+
+```bash
+npm i nestjs-zod zod
+```
+
+
 ## Health Check
 todo: add info about health endpoint
 ```bash
@@ -43,7 +51,7 @@ __Response Example:__
 
 ### Todos
  * [X] Produce and return a dummy response for now and remove `void` as a return type
- * [ ] Validate the input with Zod or create a value object or a combination of both
+ * [X] Validate the input with Zod or create a value object or a combination of both
  * [ ] Create a new module "Cache" and later link it to redis container
  * [ ] create a new module "Users" and create a database container
  * [ ] Finalise ORM/ODM to use for Database Access Abstraction layer

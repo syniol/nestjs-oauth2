@@ -1,3 +1,6 @@
+import { z } from 'zod'
+import { createZodDto } from 'nestjs-zod'
+
 // RFC Oauth 2.1 standard example request
 /**
  * POST /oauth/token HTTP/1.1
@@ -14,8 +17,10 @@ export enum AuthTokenGrantType {
   Password = 'password',
 }
 
-export interface AuthTokenRequest {
-  grant_type: AuthTokenGrantType
-  username: string
-  password: string
-}
+const authTokenRequestSchema = z.object({
+  grant_type: z.nativeEnum(AuthTokenGrantType),
+  username: z.string().min(3).max(8),
+  password: z.string().min(6).max(32),
+})
+
+export class AuthTokenRequestDTO extends createZodDto(authTokenRequestSchema) {}

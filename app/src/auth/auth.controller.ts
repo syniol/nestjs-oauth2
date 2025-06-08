@@ -1,18 +1,18 @@
 import { Body, Controller, Header, Logger, Post } from '@nestjs/common'
 import { AuthTokenResponse } from './dto/auth-token-response.dto'
 import { TokenService } from './token.service'
-import { AuthTokenRequest } from './dto/auth-token-request.dto'
+import { AuthTokenRequestDTO } from './dto/auth-token-request.dto'
 
 @Controller('auth')
 export class AuthController {
   private readonly logger: Logger = new Logger(AuthController.name)
 
-  public constructor(private readonly tokeService: TokenService) {}
+  public constructor(private readonly tokenService: TokenService) {}
 
   @Post('/token')
   @Header('Cache-Control', 'no-store')
   public async token(
-    @Body() request: AuthTokenRequest,
+    @Body() request: AuthTokenRequestDTO,
   ): Promise<AuthTokenResponse> {
     this.logger.log(
       {
@@ -21,6 +21,6 @@ export class AuthController {
       'requested a new token for authentication via: POST /auth/token',
     )
 
-    return this.tokeService.createToken()
+    return this.tokenService.createToken()
   }
 }
