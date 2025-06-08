@@ -1,4 +1,11 @@
-import { Controller, Header, HttpCode, HttpStatus, Post, Query } from '@nestjs/common'
+import {
+  Controller,
+  Header,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Query,
+} from '@nestjs/common'
 import { AuthTokenResponse, AuthTokenType } from './dto/auth-token-response.dto'
 
 @Controller('auth')

@@ -20,7 +20,7 @@ export enum AuthTokenType {
 export interface AuthTokenResponse {
   access_token: string
   token_type: AuthTokenType
-  expires_in: number,
+  expires_in: number
   refresh_token: string
   scope: string
 }
