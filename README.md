@@ -13,6 +13,9 @@ It creates a new folder named `app` with all example files and an endpoint `/` w
 
 ## Health Check
 todo: add info about health endpoint
+```bash
+curl -X GET http://127.0.0.1:8080/healthz
+```
 
 
 ## Authentication
@@ -46,6 +49,6 @@ __Response Example:__
  * [ ] Finalise ORM/ODM to use for Database Access Abstraction layer
 
 
-#### Credits
-Author: [Hadi Tajallaei](mailto:hadi@syniol.com)
-Copyright &copy; 2025 Syniol Limited. All rights reserved.
+##### Credits
+<small>Author: [Hadi Tajallaei](mailto:hadi@syniol.com)</small>
+<p><small>Copyright &copy; 2025 Syniol Limited. All rights reserved.</small></p>

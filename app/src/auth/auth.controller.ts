@@ -11,7 +11,6 @@ export class AuthController {
 
   @Post('/token')
   @Header('Cache-Control', 'no-store')
-  @HttpCode(HttpStatus.OK)
   public async token(
     @Body() request: AuthTokenRequest,
   ): Promise<AuthTokenResponse> {
