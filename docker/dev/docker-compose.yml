@@ -1,8 +1,8 @@
 services:
   node:
     build:
-      context: ..
-      dockerfile: docker/node/Dockerfile
+      context: ../..
+      dockerfile: docker/dev/node/Dockerfile
     image: syniol_node:22
     container_name: nestjs_node
     tty: true
@@ -13,7 +13,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ../:/var/local/app
+      - ../../app:/var/local/app
     networks:
       - default_nestjs_syniol_net
 
