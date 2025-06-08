@@ -11,8 +11,4 @@ export class HealthController {
       healthy: true,
     }
   }
-
-  async d() {
-    console.log('sss')
-  }
 }
