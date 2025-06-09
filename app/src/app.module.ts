@@ -18,7 +18,9 @@ import { KnexModule } from 'nestjs-knex'
           database: process.env.POSTGRES_DB,
           user: process.env.POSTGRES_USER,
           password: process.env.POSTGRES_PASSWORD,
-          ssl: true
+          ssl: {
+            rejectUnauthorized: false,
+          }
         },
       },
     }),

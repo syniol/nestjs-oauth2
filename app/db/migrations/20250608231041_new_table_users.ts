@@ -3,10 +3,10 @@ import type { Knex } from 'knex'
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('users', tableBuilder => {
     tableBuilder.bigIncrements('id').primary()
-    tableBuilder.uuid('internal_id').unique()
-    tableBuilder.string('username').unique()
-    tableBuilder.string('encrypted_password')
-    tableBuilder.string('role').checkIn(['ADMIN', 'CLIENT'])
+    tableBuilder.uuid('internal_id').unique().defaultTo(knex.raw('uuid_generate_v4()'))
+    tableBuilder.string('username').unique().notNullable()
+    tableBuilder.string('encrypted_password').notNullable()
+    tableBuilder.string('role').checkIn(['ADMIN', 'CLIENT']).defaultTo('CLIENT')
     tableBuilder.specificType('scopes', 'text ARRAY')
 
     tableBuilder.timestamps(true, true, false)

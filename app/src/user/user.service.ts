@@ -6,13 +6,14 @@ import { UserEntity } from './user.entity'
 export class UserService {
   public constructor(private readonly userRepository: UserRepository) {}
 
-  public async handleUserSignUp(userSignUpRequest: any) {
-    // todo: insert the user and encrypt the password
+  public async handleUserCreationRequestedEvent(user: Partial<UserEntity>) {
+    await this.userRepository.persist(user)
+    // todo: persist a record to events.users
+    // todo: run them in a transaction
+  }
 
-    await this.userRepository.persist(new UserEntity(
-      userSignUpRequest.username,
-      userSignUpRequest.password,
-      userSignUpRequest.scopes,
-    ))
+  public async handleUserPasswordChangeRequest(username, password: string) {
+    // todo: encrypt the password
+    await this.userRepository.updatePassword(username, password)
   }
 }
