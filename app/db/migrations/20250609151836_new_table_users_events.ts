@@ -8,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
     tableBuilder.jsonb('request')
     tableBuilder.jsonb('response')
 
-    tableBuilder.timestamps(true, true, true)
+    tableBuilder.timestamps(true, true, false)
   })
 }
 

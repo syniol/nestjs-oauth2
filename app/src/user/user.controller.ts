@@ -1,15 +1,17 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
+import { Body, Controller, HttpCode, HttpStatus, Patch, UseGuards } from '@nestjs/common'
 import { UserService } from './user.service'
+import { AuthGuard } from '../auth/auth.guard'
 
-@Controller()
+@Controller('user')
 export class UserController {
   public constructor(private readonly userService: UserService) {}
 
-  @Post('/register')
+  @Patch('/:username/password')
   @HttpCode(HttpStatus.ACCEPTED)
-  public async signUp(@Body() userSignUpRequest: any) {
+  @UseGuards(AuthGuard)
+  public async changePassword(@Body() password: any) {
     // todo: create DTO for userSignUpRequest
 
-    await this.userService.handleUserSignUp(userSignUpRequest)
+    await this.userService.handleUserSignUp(password)
   }
 }

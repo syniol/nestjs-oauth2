@@ -9,7 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     tableBuilder.string('role').checkIn(['ADMIN', 'CLIENT'])
     tableBuilder.specificType('scopes', 'text ARRAY')
 
-    tableBuilder.timestamps(true, true, true)
+    tableBuilder.timestamps(true, true, false)
 
     tableBuilder.index('username', 'users_username_idx')
   })
