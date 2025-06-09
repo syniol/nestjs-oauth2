@@ -63,9 +63,9 @@ __Response Example:__
  * [X] Produce and return a dummy response for now and remove `void` as a return type
  * [X] Validate the input with Zod or create a value object or a combination of both
  * [X] Create a new module "Users"
- * [ ] Create a database container for postgres
- * [ ] Finalise ORM/ODM to use for Database Access Abstraction layer
- * [ ] Create a new module "Cache"
+ * [X] Create a database container for postgres
+ * [X] Finalise ORM/ODM to use for Database Access Abstraction layer
+ * [X] Create a new module "Cache"
  * [ ] Create a redis container
 
 

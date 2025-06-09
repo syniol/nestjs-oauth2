@@ -1,11 +1,11 @@
 import { Injectable, NotImplementedException } from '@nestjs/common'
+import { InjectConnection, Knex } from 'nestjs-knex'
 import { User } from './user.model'
 import { UserEntity } from './user.entity'
 
 @Injectable()
 export class UserRepository {
-  // todo: inject db connection
-  public constructor() {}
+  public constructor(@InjectConnection() private readonly knex: Knex) {}
 
   public async persist(user: User): Promise<UserEntity> {
     throw new NotImplementedException()
