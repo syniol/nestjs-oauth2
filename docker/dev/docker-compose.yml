@@ -1,22 +1,48 @@
 services:
   node:
+    image: syniol_node:22
     build:
       context: ../..
       dockerfile: docker/dev/node/Dockerfile
-    image: syniol_node:22
     container_name: nestjs_node
     tty: true
+    restart: unless-stopped
     environment:
       NODE_ENV: development
       PORT: 8080
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: o1xn@96e?7IJ!aeSe-AA
+      POSTGRES_DB: nestjs-postgres-db
     working_dir: /var/local/app
     ports:
       - 8080:8080
     volumes:
       - ../../app:/var/local/app
     networks:
-      - default_nestjs_syniol_net
+      - syniol_nestjs_skeleton
+
+  postgres:
+    image: syniol_postgres:latest
+    build:
+      context: ../..
+      dockerfile: docker/dev/postgres/Dockerfile
+    container_name: nestjs_postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: o1xn@96e?7IJ!aeSe-AA
+      POSTGRES_DB: nestjs-postgres-db
+    healthcheck:
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_PASSWORD}'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - syniol_nestjs_skeleton
 
 networks:
-  default_nestjs_syniol_net:
+  syniol_nestjs_skeleton:
     driver: bridge

@@ -1,41 +1,20 @@
-import type { Knex } from "knex";
+import type { Knex } from 'knex'
 
 const config: { [key: string]: Knex.Config } = {
   development: {
-    client: "postgresql",
+    client: 'postgresql',
     connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
+      database: process.env.POSTGRES_DB,
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      host: process.env.POSTGRES_HOST
     },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
-      tableName: "migrations",
-      directory: './db/migrations',
-      extension: 'ts',
-      disableTransactions: true,
-    },
-    seeds: {
-      directory: './db/seeds',
-    },
-  },
-
-  staging: {
-    client: "postgresql",
-    connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: "migrations",
+      tableName: 'migrations',
       directory: './db/migrations',
       extension: 'ts',
       disableTransactions: true,
@@ -46,18 +25,19 @@ const config: { [key: string]: Knex.Config } = {
   },
 
   production: {
-    client: "postgresql",
+    client: 'postgresql',
     connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
+      database: process.env.POSTGRES_DB,
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      host: process.env.POSTGRES_HOST
     },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
-      tableName: "migrations",
+      tableName: 'migrations',
       directory: './db/migrations',
       extension: 'ts',
       disableTransactions: true,
@@ -65,8 +45,8 @@ const config: { [key: string]: Knex.Config } = {
     seeds: {
       directory: './db/seeds',
     },
-  }
+  },
 
-};
+}
 
-module.exports = config;
+module.exports = config
