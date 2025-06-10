@@ -63,11 +63,13 @@ __Response Example:__
  * [X] Produce and return a dummy response for now and remove `void` as a return type
  * [X] Validate the input with Zod or create a value object or a combination of both
  * [X] Create a new module "Users"
+ * [X] Created Database Seeds for Users in dev
  * [X] Create a database container for postgres
  * [X] Finalise ORM/ODM to use for Database Access Abstraction layer
  * [X] Create a new module "Cache" as an abstraction to Redis Connection
  * [ ] Create a new module "Database" as an abstraction to Knex Connection
  * [ ] Create a cache container for redis
+ * [ ] Create `prod` folder under `docker` for production version
  * [ ] Check all todos in code ticked-off
 
 
