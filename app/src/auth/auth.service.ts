@@ -1,8 +1,6 @@
 import { randomBytes } from 'node:crypto'
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { AuthTokenResponse, AuthTokenType } from './dto/auth-token-response.dto'
-import { UserService } from '../user/user.service'
-import { UserEntity } from '../user/user.entity'
 
 @Injectable()
 export class AuthService {
@@ -10,21 +8,22 @@ export class AuthService {
   private static readonly SecondsInMinute = 60
   private static readonly MinutesInHour = 60
 
-  public constructor(private readonly userService: UserService) {
-  }
+  private readonly logger: Logger = new Logger(AuthService.name)
 
-  public async handleTokenRequest(): Promise<AuthTokenResponse> {
-    // todo: check if user exists and verify username & password
-    // todo: add event listener when user is not registered: `USER_REGISTRATION_REQUESTED`
-    await this.userService.handleUserCreationRequestedEvent(
-      new UserEntity(
-        'hadi',
-        'ssssdasdsa',
-        ['api.read', 'auth.readWrite'],
-      ),
+  public async handleTokenRequest(username: string): Promise<AuthTokenResponse> {
+    this.logger.log(
+      {
+        username: username,
+      },
+      'requested a new token for authentication via: POST /auth/token',
     )
 
-    // todo: store this in a cache
+    // todo: Check if user exists and verify username & password
+
+    // todo: Store this in a cache e.g. await this.cacheManager.set(username, JSON.stringify(token))
+    // todo: Install the @nestjs/cache-manager package along with the cache-manager package.
+    // todo: Create a redis container for Docker
+
     return {
       access_token: randomBytes(AuthService.DefaultTokenByteSize).toString('base64'),
       expires_in: AuthService.MinutesInHour * AuthService.SecondsInMinute,

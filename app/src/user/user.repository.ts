@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { InjectConnection, Knex } from 'nestjs-knex'
 import { UserEntity } from './user.entity'
 
@@ -8,12 +8,12 @@ export class UserRepository {
 
   public async persist(user: Partial<UserEntity>): Promise<UserEntity> {
     const [newUserRecord] = await this
-      .knex<UserEntity>(`public.${UserEntity.Table}`)
+      .knex<UserEntity>(UserEntity.Table)
       .insert(JSON.parse(JSON.stringify(user)))
       .returning<UserEntity[]>('*')
 
     if (!newUserRecord) {
-      throw new NotFoundException( 'no record been updated')
+      throw new Error( 'no record been created')
     }
 
     return newUserRecord
@@ -30,7 +30,7 @@ export class UserRepository {
       .returning<UserEntity[]>('*')
 
     if (!updatedUser) {
-      throw new NotFoundException( 'no record been updated')
+      throw new Error( 'no record been updated')
     }
 
     return updatedUser

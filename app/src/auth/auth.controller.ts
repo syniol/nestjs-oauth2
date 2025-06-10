@@ -5,8 +5,6 @@ import { AuthTokenRequestDTO } from './dto/auth-token-request.dto'
 
 @Controller('auth')
 export class AuthController {
-  private readonly logger: Logger = new Logger(AuthController.name)
-
   public constructor(private readonly tokenService: AuthService) {}
 
   @Post('/token')
@@ -14,14 +12,6 @@ export class AuthController {
   public async token(
     @Body() request: AuthTokenRequestDTO,
   ): Promise<AuthTokenResponse> {
-    this.logger.log(
-      {
-        username: request.username,
-      },
-      'requested a new token for authentication via: POST /auth/token',
-    )
-
-
-    return this.tokenService.handleTokenRequest()
+    return this.tokenService.handleTokenRequest(request.username)
   }
 }

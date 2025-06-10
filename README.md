@@ -1,5 +1,5 @@
-# NestJS Skeleton
-This is a skeleton application for NestJS with TypeScript.
+# NestJS OAuth 2.1 Demo
+This is intended as a demo application for OAuth 2.1 implementation using NestJS.
 
 
 ## Initial Skeleton Build
@@ -65,8 +65,10 @@ __Response Example:__
  * [X] Create a new module "Users"
  * [X] Create a database container for postgres
  * [X] Finalise ORM/ODM to use for Database Access Abstraction layer
- * [X] Create a new module "Cache"
- * [ ] Create a redis container
+ * [X] Create a new module "Cache" as an abstraction to Redis Connection
+ * [ ] Create a new module "Database" as an abstraction to Knex Connection
+ * [ ] Create a cache container for redis
+ * [ ] Check all todos in code ticked-off
 
 
 ##### Credits
