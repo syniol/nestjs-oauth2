@@ -5,18 +5,15 @@ services:
       context: ../..
       dockerfile: docker/dev/node/Dockerfile
     container_name: nestjs_node
-    tty: true
     restart: unless-stopped
     environment:
-      NODE_ENV: development
-      PORT: 8080
+      PORT: 80
       POSTGRES_HOST: postgres
       POSTGRES_USER: root
       POSTGRES_PASSWORD: o1xn@96e?7IJ!aeSe-AA
       POSTGRES_DB: nestjs-postgres-db
-    working_dir: /var/local/app
     ports:
-      - 8080:8080
+      - 80:80
     volumes:
       - ../../app:/var/local/app
     networks:
@@ -29,12 +26,12 @@ services:
       dockerfile: docker/dev/postgres/Dockerfile
     container_name: nestjs_postgres
     restart: unless-stopped
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: o1xn@96e?7IJ!aeSe-AA
       POSTGRES_DB: nestjs-postgres-db
+    volumes:
+      - postgres_data:/var/somewhere-where-data-are
     healthcheck:
       test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_PASSWORD}'" ]
       interval: 10s
@@ -42,6 +39,9 @@ services:
       retries: 3
     networks:
       - syniol_nestjs_oauth
+
+volumes:
+  postgres_data:
 
 networks:
   syniol_nestjs_oauth:
