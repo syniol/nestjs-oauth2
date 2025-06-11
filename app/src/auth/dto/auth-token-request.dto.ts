@@ -1,5 +1,4 @@
-import { z } from 'zod'
-import { createZodDto } from 'nestjs-zod'
+import { Validation, ValidationDto } from '../../libs/validation'
 
 // RFC Oauth 2.1 standard example request
 /**
@@ -17,10 +16,10 @@ export enum AuthTokenGrantType {
   Password = 'password',
 }
 
-const authTokenRequestSchema = z.object({
-  grant_type: z.nativeEnum(AuthTokenGrantType),
-  username: z.string().min(3).max(8),
-  password: z.string().min(6).max(32),
+const authTokenRequestSchema = Validation.object({
+  grant_type: Validation.nativeEnum(AuthTokenGrantType),
+  username: Validation.string().min(3).max(8),
+  password: Validation.string().min(6).max(32),
 })
 
-export class AuthTokenRequestDTO extends createZodDto(authTokenRequestSchema) {}
+export class AuthTokenRequestDTO extends ValidationDto(authTokenRequestSchema) {}

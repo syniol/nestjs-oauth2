@@ -1,7 +1,6 @@
-import { randomBytes } from 'node:crypto'
 import { Injectable, Logger } from '@nestjs/common'
 import { AuthTokenResponse, authTokenResponseFromToken, AuthTokenType } from './dto/auth-token-response.dto'
-import { AuthToken } from './auth-token'
+import { AuthToken } from './auth.token'
 
 @Injectable()
 export class AuthService {
