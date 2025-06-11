@@ -1,13 +1,10 @@
 import { randomBytes } from 'node:crypto'
 import { Injectable, Logger } from '@nestjs/common'
-import { AuthTokenResponse, AuthTokenType } from './dto/auth-token-response.dto'
+import { AuthTokenResponse, authTokenResponseFromToken, AuthTokenType } from './dto/auth-token-response.dto'
+import { AuthToken } from './auth-token'
 
 @Injectable()
 export class AuthService {
-  private static readonly DefaultTokenByteSize = 64
-  private static readonly SecondsInMinute = 60
-  private static readonly MinutesInHour = 60
-
   private readonly logger: Logger = new Logger(AuthService.name)
 
   public async handleTokenRequest(username: string): Promise<AuthTokenResponse> {
@@ -24,12 +21,6 @@ export class AuthService {
     // todo: Install the @nestjs/cache-manager package along with the cache-manager package.
     // todo: Create a redis container for Docker
 
-    return {
-      access_token: randomBytes(AuthService.DefaultTokenByteSize).toString('base64'),
-      expires_in: AuthService.MinutesInHour * AuthService.SecondsInMinute,
-      refresh_token: randomBytes(AuthService.DefaultTokenByteSize).toString('base64'),
-      scope: 'portal.readonly',
-      token_type: AuthTokenType.Bearer,
-    }
+    return authTokenResponseFromToken(new AuthToken())
   }
 }

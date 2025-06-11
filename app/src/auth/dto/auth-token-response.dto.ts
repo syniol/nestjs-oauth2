@@ -1,4 +1,6 @@
 // RFC Oauth 2.1 standard example response
+import { AuthToken } from '../auth-token'
+
 /**
  * HTTP/1.1 200 OK
  * Content-Type: application/json
@@ -23,4 +25,14 @@ export interface AuthTokenResponse {
   expires_in: number
   refresh_token: string
   scope: string
+}
+
+export function authTokenResponseFromToken(token: AuthToken): AuthTokenResponse {
+  return {
+    access_token: token.accessToken,
+    expires_in: token.expiresIn,
+    refresh_token: token.refreshToken,
+    scope: token.scope,
+    token_type: token.tokenType
+  }
 }
