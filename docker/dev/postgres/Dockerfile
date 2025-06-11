@@ -5,6 +5,9 @@ RUN apk add --update-cache openssl \
     -days 365 \
     -subj "/C=GB/O=localhost/OU=Domain Control Validated/CN=localhost"
 
+RUN touch /docker-entrypoint-initdb.d/extensions.sql \
+    && echo 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";' > /docker-entrypoint-initdb.d/extensions.sql
+
 RUN chmod 0600 /var/lib/postgresql/server.key \
     && chmod 0600 /var/lib/postgresql/server.crt
 
