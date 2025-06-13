@@ -1,7 +1,7 @@
-// RFC Oauth 2.1 standard example response
 import { AuthToken } from '../auth.token'
 
 /**
+ * RFC Oauth 2.1 standard example response
  * HTTP/1.1 200 OK
  * Content-Type: application/json
  * Cache-Control: no-store

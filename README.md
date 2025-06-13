@@ -23,9 +23,14 @@ npm i nestjs-zod zod
 
 ```bash
 npm install nestjs-knex knex pq --save
+
 npx knex init -x ts
+
 npx knex migrate:make <migration_name> -x ts
+npx knex migrate:latest
+
 npx knex seed:make <seed_name> -x ts
+npx knex seed:run
 ```
 
 
@@ -67,9 +72,9 @@ __Response Example:__
  * [X] Create a database container for postgres
  * [X] Finalise ORM/ODM to use for Database Access Abstraction layer
  * [X] Create a new module "Cache" as an abstraction to Redis Connection
- * [ ] Create a new module "Database" as an abstraction to Knex Connection
  * [ ] Create a cache container for redis
- * [ ] Create `prod` folder under `docker` for production version
+ * [ ] Create a new module "Database" as an abstraction to Knex Connection
+ * [X] Create `prod` folder under `docker` for production version
  * [ ] Check all todos in code ticked-off
 
 

@@ -42,9 +42,9 @@ const config: { [key: string]: Knex.Config } = {
       extension: 'ts',
       disableTransactions: true,
     },
-    seeds: {
-      directory: './db/seeds',
-    },
+    // seeds: {
+    //   directory: './db/seeds',
+    // },
   },
 
 }

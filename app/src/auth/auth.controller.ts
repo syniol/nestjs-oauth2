@@ -1,4 +1,4 @@
-import { Body, Controller, Header, Logger, Post } from '@nestjs/common'
+import { Body, Controller, Header, Post } from '@nestjs/common'
 import { AuthTokenResponse } from './dto/auth-token-response.dto'
 import { AuthService } from './auth.service'
 import { AuthTokenRequestDTO } from './dto/auth-token-request.dto'
