@@ -1,4 +1,4 @@
-import { Injectable, NotImplementedException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import {createECDH, randomBytes, createCipheriv, createDecipheriv } from 'node:crypto'
 
 @Injectable()
