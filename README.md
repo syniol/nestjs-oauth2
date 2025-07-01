@@ -64,6 +64,12 @@ __Response Example:__
 ```
 
 
+## Encryption
+There is a CLI node.js application located at: `app/bin/key.js` that creates a secret key 
+could be utilised to decrypt and encryption of user password. Environment variable 
+`CRYPTO_SECRET_KEY` is populated via Docker Secrets inside the `key.txt` file.
+
+
 ### Todos
  * [X] Produce and return a dummy response for now and remove `void` as a return type
  * [X] Validate the input with Zod or create a value object or a combination of both

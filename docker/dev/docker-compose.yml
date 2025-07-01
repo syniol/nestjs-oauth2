@@ -7,6 +7,13 @@ services:
     container_name: nestjs_node
     tty: true
     restart: unless-stopped
+    working_dir: /var/local/app
+    secrets:
+      - crypto_secret_key
+    ports:
+      - 8080:8080
+    volumes:
+      - ../../app:/var/local/app
     environment:
       NODE_ENV: development
       PORT: 8080
@@ -14,11 +21,7 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: o1xn@96e?7IJ!aeSe-AA
       POSTGRES_DB: nestjs-postgres-db
-    working_dir: /var/local/app
-    ports:
-      - 8080:8080
-    volumes:
-      - ../../app:/var/local/app
+      CRYPTO_SECRET_KEY: /run/secrets/crypto_secret_key
     networks:
       - syniol_nestjs_oauth
 
@@ -42,6 +45,10 @@ services:
       retries: 3
     networks:
       - syniol_nestjs_oauth
+
+secrets:
+  crypto_secret_key:
+    file: key.txt
 
 networks:
   syniol_nestjs_oauth:

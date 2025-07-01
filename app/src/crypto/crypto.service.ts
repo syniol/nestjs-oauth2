@@ -1,28 +1,34 @@
+import { randomBytes, createCipheriv, createDecipheriv } from 'node:crypto'
 import { Injectable } from '@nestjs/common'
-import {createECDH, randomBytes, createCipheriv, createDecipheriv } from 'node:crypto'
+import { CryptoDecrypted, CryptoEncrypted } from './dto/crypto.dto'
 
 @Injectable()
 export class CryptoService {
-  //  secp521r1
-  private static readonly EllipticCurve = 'prime192v1'
-  private static readonly EncryptionAlgorithm = 'aes-256-ctr'
-  private static readonly EncryptionDefaultByteSize = 16
+  public static readonly EllipticCurve = 'prime192v1'
+  public static readonly EncryptionAlgorithm = 'aes-256-ctr'
+  public static readonly EncryptionDefaultByteSize = 16
 
-  public async encrypt(plaintext: string): Promise<{ iv, key, content: string}> {
-    const ecdh = createECDH(CryptoService.EllipticCurve);
-    const clientKey = ecdh.generateKeys();
-    const clientSecret = ecdh.computeSecret(clientKey);
+  private readonly secretKey: string
 
+  public constructor() {
+    if (!process.env?.CRYPTO_SECRET_KEY?.length) {
+      throw new Error('Crypto Secret Key is not defined')
+    }
+
+    this.secretKey = process.env.CRYPTO_SECRET_KEY
+  }
+
+  public async encrypt(plaintext: string): Promise<CryptoEncrypted> {
     return this.encryptPlaintextWithSharedSecretKey(
       plaintext,
-      clientSecret.toString('base64'),
+      this.secretKey,
     );
   }
 
-  public decrypt(hash , secretKey): Promise<string> {
+  public decrypt(hash: CryptoEncrypted): Promise<CryptoDecrypted> {
     const decipher = createDecipheriv(
       CryptoService.EncryptionAlgorithm,
-      secretKey,
+      this.secretKey,
       Buffer.from(hash.iv, 'hex'),
     );
 
@@ -34,7 +40,7 @@ export class CryptoService {
     return Promise.resolve(decrypted.toString());
   }
 
-  private async encryptPlaintextWithSharedSecretKey( text , secretKey ): Promise<{ iv, key, content: string}> {
+  private async encryptPlaintextWithSharedSecretKey(text , secretKey): Promise<CryptoEncrypted> {
     const iv = randomBytes(CryptoService.EncryptionDefaultByteSize);
     const cipher = createCipheriv(CryptoService.EncryptionAlgorithm, secretKey, iv);
     const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
@@ -42,7 +48,6 @@ export class CryptoService {
     return Promise.resolve({
       iv: iv.toString('hex'),
       content: encrypted.toString('base64'),
-      key: secretKey
     })
   }
 }

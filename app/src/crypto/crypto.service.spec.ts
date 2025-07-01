@@ -1,22 +1,33 @@
+import { createECDH } from 'node:crypto'
 import { CryptoService } from './crypto.service'
 
 describe('Crypto Service Test', () => {
+  const ecdh = createECDH(CryptoService.EllipticCurve)
+  const clientKey = ecdh.generateKeys()
+  const clientSecret = ecdh.computeSecret(clientKey)
+
+  process.env.CRYPTO_SECRET_KEY = clientSecret.toString('base64')
+
+  afterAll(() => {
+    delete process.env.CRYPTO_SECRET_KEY
+  })
+
   it('should encrypt successfully', async () => {
-    const sut = new CryptoService()
-    await expect(sut.encrypt('Syniol Limited')).resolves.toEqual(expect.objectContaining({
+    const systemUnderTest = new CryptoService()
+
+    await expect(systemUnderTest.encrypt('Syniol Limited')).resolves.toEqual(expect.objectContaining({
       content: expect.any(String),
       iv: expect.any(String),
-      key: expect.any(String),
     }))
 
-    const sss = await sut.encrypt('Syniol Limited')
-    await expect(sut.decrypt(sss, sss.key)).resolves.toEqual('Syniol Limited')
+    const actual = await systemUnderTest.encrypt('Syniol Limited')
+    await expect(systemUnderTest.decrypt(actual)).resolves.toEqual('Syniol Limited')
   })
 
   it('should decrypt the encrypted value successfully', async () => {
-    const sut = new CryptoService()
+    const systemUnderTest = new CryptoService()
 
-    const encryptedResult = await sut.encrypt('Syniol Limited')
-    await expect(sut.decrypt(encryptedResult, encryptedResult.key)).resolves.toEqual('Syniol Limited')
+    const actual = await systemUnderTest.encrypt('Syniol Limited')
+    await expect(systemUnderTest.decrypt(actual)).resolves.toEqual('Syniol Limited')
   })
 })
