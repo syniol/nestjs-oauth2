@@ -6,6 +6,14 @@ import { UserEntity } from './user.entity'
 export class UserRepository {
   public constructor(@InjectConnection() private readonly knex: Knex) {}
 
+  public async findByUsername(username: string): Promise<UserEntity | undefined> {
+    return this
+      .knex(UserEntity.Table)
+      .select('*')
+      .where('username', username)
+      .first()
+  }
+
   public async persist(user: Partial<UserEntity>): Promise<UserEntity> {
     const [newUserRecord] = await this
       .knex<UserEntity>(UserEntity.Table)

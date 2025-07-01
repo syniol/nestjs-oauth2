@@ -8,6 +8,6 @@ import { CryptoModule } from '../crypto/crypto.module'
   imports: [CryptoModule],
   controllers: [UserController],
   providers: [UserRepository, UserService],
-  exports: [UserService],
+  exports: [UserService, UserRepository],
 })
 export class UserModule {}

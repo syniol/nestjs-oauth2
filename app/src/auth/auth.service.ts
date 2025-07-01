@@ -3,11 +3,16 @@ import { AuthTokenResponse, authTokenResponseFromToken } from './dto/auth-token-
 import { AuthToken } from './auth.token'
 import { CryptoService } from '../crypto/crypto.service'
 import { AuthTokenRequestDTO } from './dto/auth-token-request.dto'
+import { UserRepository } from '../user/user.repository'
+import { UserEntity } from '../user/user.entity'
 
 @Injectable()
 export class AuthService {
   private readonly logger: Logger = new Logger(AuthService.name)
-  constructor(private readonly cryptoService: CryptoService) {}
+  constructor(
+    private readonly cryptoService: CryptoService,
+    private readonly userRepository: UserRepository,
+  ) {}
 
   public async handleTokenRequest({ username, password }: AuthTokenRequestDTO): Promise<AuthTokenResponse> {
     this.logger.log(
