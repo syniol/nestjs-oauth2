@@ -21,7 +21,7 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: o1xn@96e?7IJ!aeSe-AA
       POSTGRES_DB: nestjs-postgres-db
-      CRYPTO_SECRET_KEY: /run/secrets/crypto_secret_key
+      CRYPTO_SECRET_KEY: LQK6OgJyxrKx7PV+xicqwUgH4YCHshP3
     networks:
       - syniol_nestjs_oauth
 
@@ -45,10 +45,6 @@ services:
       retries: 3
     networks:
       - syniol_nestjs_oauth
-
-secrets:
-  crypto_secret_key:
-    file: key.txt
 
 networks:
   syniol_nestjs_oauth:

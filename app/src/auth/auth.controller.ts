@@ -12,6 +12,6 @@ export class AuthController {
   public async token(
     @Body() request: AuthTokenRequestDTO,
   ): Promise<AuthTokenResponse> {
-    return this.tokenService.handleTokenRequest(request.username)
+    return this.tokenService.handleTokenRequest(request)
   }
 }
