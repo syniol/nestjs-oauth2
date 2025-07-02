@@ -27,7 +27,7 @@ export class AuthService {
 
     const foundUser = await this.userService.handleUsernameLookup(username)
     if (foundUser) {
-      const isCredentialValid = this.userService.handleUserCredentialVerification(
+      const isCredentialValid = await this.userService.handleUserCredentialVerification(
         foundUser,
         password,
       )

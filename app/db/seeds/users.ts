@@ -14,7 +14,7 @@ export async function seed(knex: Knex): Promise<void> {
     },
     {
       username: 'hadi2',
-      credential: await cryptoService.encrypt('SomeRandomString3'),
+      credential: await cryptoService.encrypt('SomeRandomString2'),
       scopes: ['portal.read'],
     },
     {
