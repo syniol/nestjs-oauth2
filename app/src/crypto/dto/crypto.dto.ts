@@ -1,5 +1,5 @@
-export type CryptoEncrypted = {
+export type CryptoEncryptedValue = {
   iv, content: string
 }
 
-export type CryptoDecrypted = string
+export type CryptoDecryptedValue = string

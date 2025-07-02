@@ -5,7 +5,7 @@ export async function up(knex: Knex): Promise<void> {
     tableBuilder.bigIncrements('id').primary()
     tableBuilder.uuid('internal_id').unique().defaultTo(knex.raw('uuid_generate_v4()'))
     tableBuilder.string('username').unique().notNullable()
-    tableBuilder.string('encrypted_password').notNullable()
+    tableBuilder.jsonb('credential').notNullable()
     tableBuilder.string('role').checkIn(['ADMIN', 'CLIENT']).defaultTo('CLIENT')
     tableBuilder.specificType('scopes', 'text ARRAY')
 

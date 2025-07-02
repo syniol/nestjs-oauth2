@@ -1,6 +1,6 @@
 import { randomBytes, createCipheriv, createDecipheriv } from 'node:crypto'
 import { Injectable } from '@nestjs/common'
-import { CryptoDecrypted, CryptoEncrypted } from './dto/crypto.dto'
+import { CryptoDecryptedValue, CryptoEncryptedValue } from './dto/crypto.dto'
 
 @Injectable()
 export class CryptoService {
@@ -18,14 +18,14 @@ export class CryptoService {
     this.secretKey = process.env.CRYPTO_SECRET_KEY
   }
 
-  public async encrypt(plaintext: string): Promise<CryptoEncrypted> {
+  public async encrypt(plaintext: string): Promise<CryptoEncryptedValue> {
     return this.encryptPlaintextWithSharedSecretKey(
       plaintext,
       this.secretKey,
     );
   }
 
-  public decrypt(hash: CryptoEncrypted): Promise<CryptoDecrypted> {
+  public decrypt(hash: CryptoEncryptedValue): Promise<CryptoDecryptedValue> {
     const decipher = createDecipheriv(
       CryptoService.EncryptionAlgorithm,
       this.secretKey,
@@ -40,7 +40,7 @@ export class CryptoService {
     return Promise.resolve(decrypted.toString());
   }
 
-  private async encryptPlaintextWithSharedSecretKey(text , secretKey): Promise<CryptoEncrypted> {
+  private async encryptPlaintextWithSharedSecretKey(text , secretKey): Promise<CryptoEncryptedValue> {
     const iv = randomBytes(CryptoService.EncryptionDefaultByteSize);
     const cipher = createCipheriv(CryptoService.EncryptionAlgorithm, secretKey, iv);
     const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);

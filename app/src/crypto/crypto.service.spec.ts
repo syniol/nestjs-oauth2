@@ -19,9 +19,6 @@ describe('Crypto Service Test', () => {
       content: expect.any(String),
       iv: expect.any(String),
     }))
-
-    const actual = await systemUnderTest.encrypt('Syniol Limited')
-    await expect(systemUnderTest.decrypt(actual)).resolves.toEqual('Syniol Limited')
   })
 
   it('should decrypt the encrypted value successfully', async () => {
