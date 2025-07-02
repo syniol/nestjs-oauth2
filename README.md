@@ -19,7 +19,8 @@ npm i nestjs-zod zod
 ```
 
 
-## Database ORM for Postgres
+## Database & ORM
+Postgres chosen and Knex for Database Abstraction Layer.
 
 ```bash
 npm install nestjs-knex knex pq --save
@@ -67,7 +68,7 @@ __Response Example:__
 ## Encryption
 There is a CLI node.js application located at: `app/bin/key.js` that creates a secret key 
 could be utilised to decrypt and encryption of user password. Environment variable 
-`CRYPTO_SECRET_KEY` is populated via Docker Secrets inside the `key.txt` file.
+`CRYPTO_SECRET_KEY` is populated via host or `.env` file at the root of docker files.
 
 
 ### Todos
