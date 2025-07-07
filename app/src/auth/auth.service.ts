@@ -3,6 +3,7 @@ import { AuthTokenResponse, authTokenResponseFromToken } from './dto/auth-token-
 import { AuthToken } from './auth.token'
 import { AuthTokenRequestDTO } from './dto/auth-token-request.dto'
 import { UserService } from '../user/user.service'
+import { CacheService } from '../infrastructure/cache/cache.service'
 
 @Injectable()
 export class AuthService {
@@ -10,6 +11,7 @@ export class AuthService {
 
   public constructor(
     private readonly userService: UserService,
+    private readonly cacheService: CacheService,
   ) {
   }
 
@@ -32,7 +34,9 @@ export class AuthService {
         password,
       )
       if (isCredentialValid) {
-        return authTokenResponseFromToken(new AuthToken())
+        const tokenResponse = authTokenResponseFromToken(new AuthToken())
+
+        await this.cacheService.set(tokenResponse.access_token, foundUser.username)
       }
     }
 
