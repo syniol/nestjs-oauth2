@@ -1,4 +1,6 @@
 # NestJS OAuth 2.1 Demo
+![workflow](https://github.com/syniol/nestjs-skeleton/actions/workflows/makefile.yml/badge.svg)
+
 This is intended as a demo application for OAuth 2.1 implementation using NestJS.
 
 
