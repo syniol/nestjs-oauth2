@@ -79,9 +79,10 @@ could be utilised to decrypt and encryption of user password. Environment variab
  * [X] Create a database container for postgres
  * [X] Finalise ORM/ODM to use for Database Access Abstraction layer
  * [X] Create a new module "Cache" as an abstraction to Redis Connection
- * [ ] Create a cache container for redis
+ * [X] Create a cache container for redis
  * [ ] Create a new module "Database" as an abstraction to Knex Connection
  * [X] Create `prod` folder under `docker` for production version
+ * [ ] Docker `prod` new Dockerfile to include build section for tests and etc
  * [ ] Check all todos in code ticked-off
 
 

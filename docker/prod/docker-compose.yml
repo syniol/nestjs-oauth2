@@ -1,4 +1,22 @@
 services:
+  nginx:
+    image: syniol_nginx:1.22
+    build:
+      context: ../..
+      dockerfile: docker/prod/nginx/Dockerfile
+    container_name: nestjs_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    healthcheck:
+      test: curl -s -o /dev/null -w "%{http_code}" http://nginx:80/healthz | grep 200 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - syniol_nestjs_oauth
+
   node:
     image: syniol_node:22
     build:
@@ -6,16 +24,24 @@ services:
       dockerfile: docker/prod/node/Dockerfile
     container_name: nestjs_node
     restart: unless-stopped
-    environment:
-      PORT: 80
-      POSTGRES_HOST: postgres
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: o1xn@96e?7IJ!aeSe-AA
-      POSTGRES_DB: nestjs-postgres-db
-    ports:
-      - 80:80
     volumes:
       - ../../app:/var/local/app
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: nestjs-postgres-db
+      CRYPTO_SECRET_KEY: ${CRYPTO_SECRET_KEY}
+    healthcheck:
+      test: curl -s -o /dev/null -w "%{http_code}" http://node:8080/healthz | grep 200 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      - postgres
+      - redis
     networks:
       - syniol_nestjs_oauth
 
@@ -28,21 +54,40 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: root
-      POSTGRES_PASSWORD: o1xn@96e?7IJ!aeSe-AA
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: nestjs-postgres-db
-    volumes:
-      - postgres_data:/var/somewhere-where-data-are
     healthcheck:
-      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_PASSWORD}'" ]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 3
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - syniol_nestjs_oauth
+
+  redis:
+    image: syniol_redis:latest
+    build:
+      context: ../..
+      dockerfile: docker/prod/redis/Dockerfile
+    container_name: nestjs_redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - redis_data:/data
     networks:
       - syniol_nestjs_oauth
 
 volumes:
   postgres_data:
+  redis_data:
 
 networks:
   syniol_nestjs_oauth:
+    name: syniol_nestjs_oauth
     driver: bridge

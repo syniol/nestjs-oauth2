@@ -16,10 +16,6 @@ export class AuthService {
   }
 
   public async handleTokenRequest({ username, password }: AuthTokenRequestDTO): Promise<AuthTokenResponse> {
-    // todo: Check if user exists and verify the username & password
-    // todo: Store this in a cache e.g. await this.cacheManager.set(username, JSON.stringify(token))
-    // todo: Install the @nestjs/cache-manager package along with the cache-manager package.
-    // todo: Create a redis container for Docker
     this.logger.log(
       {
         username: username,
@@ -35,8 +31,9 @@ export class AuthService {
       )
       if (isCredentialValid) {
         const tokenResponse = authTokenResponseFromToken(new AuthToken())
-
         await this.cacheService.set(tokenResponse.access_token, foundUser.username)
+
+        return tokenResponse
       }
     }
 

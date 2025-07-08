@@ -3,7 +3,7 @@ import type { Knex } from 'knex'
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('events.users', tableBuilder => {
     tableBuilder.bigIncrements('id').primary()
-    tableBuilder.uuid('internal_id').unique()
+    tableBuilder.uuid('internal_id').unique().defaultTo(knex.raw('uuid_generate_v4()'))
     tableBuilder.string('event')
     tableBuilder.jsonb('request')
     tableBuilder.jsonb('response')

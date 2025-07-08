@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { InjectConnection, Knex } from 'nestjs-knex'
+import { Knex } from 'knex'
+import { InjectConnection } from 'nestjs-knex'
 import { UserEntity } from './user.entity'
 import { CryptoEncryptedValue } from '../crypto/dto/crypto.dto'
 
@@ -16,34 +17,45 @@ export class UserRepository {
   }
 
   public async persist(user: Partial<UserEntity>): Promise<UserEntity> {
-    // todo: persist a record to events.users
-    // todo: run them in a transaction
-    const [newUserRecord] = await this
-      .knex<UserEntity>(UserEntity.Table)
-      .insert(JSON.parse(JSON.stringify(user)))
-      .returning<UserEntity[]>('*')
+    return this.knex.transaction(async trx => {
+      const [newUserRecord] = await trx<UserEntity>(UserEntity.Table)
+        .insert(JSON.parse(JSON.stringify(user)))
+        .returning<UserEntity[]>('*')
+      if (!newUserRecord) {
+        throw new Error( 'no record been created')
+      }
 
-    if (!newUserRecord) {
-      throw new Error( 'no record been created')
-    }
+      await trx(`events.${UserEntity.Table}`).insert({
+        event: 'NEW_USER_REGISTERED',
+        request: JSON.stringify(user),
+        response: JSON.stringify(newUserRecord)
+      })
 
-    return newUserRecord
+      return newUserRecord
+    })
   }
 
-  public async updatePassword(username, updatedCredential: CryptoEncryptedValue): Promise<UserEntity | undefined> {
-    const [updatedUser] = await this
-      .knex<UserEntity>('users')
-      .update({
-        credential: updatedCredential,
-        updated_at: new Date(),
+  public async updatePassword(username, updatedCredential: CryptoEncryptedValue): Promise<UserEntity> {
+    return this.knex.transaction( async trx => {
+      const [updatedUser] = await trx<UserEntity>('users')
+        .update({
+          credential: updatedCredential,
+          updated_at: new Date(),
+        })
+        .where('users.username', username)
+        .returning<UserEntity[]>('*')
+      if (!updatedUser) {
+        throw new Error( 'no record been updated')
+      }
+
+      await trx(`events.${UserEntity.Table}`).insert({
+        event: 'USER_PASSWORD_CHANGED',
+        request: JSON.stringify({ username, updatedCredential }),
+        response: JSON.stringify(updatedUser)
       })
-      .where('users.username', username)
-      .returning<UserEntity[]>('*')
 
-    if (!updatedUser) {
-      throw new Error( 'no record been updated')
-    }
+      return updatedUser
+    })
 
-    return updatedUser
   }
 }
