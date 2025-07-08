@@ -48,7 +48,7 @@ guarded endpoints utilising `AuthGuard`.
 
 __Request Example:__
 ```bash
-curl -d "username=hadi1&password=SomeRandomString1&grant_type=password" \
+curl -d "username=guest&password=Guest123456&grant_type=password" \
  -H "Content-Type: application/x-www-form-urlencoded" \
   -X POST http://127.0.0.1:8080/auth/token
 ```

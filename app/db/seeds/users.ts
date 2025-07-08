@@ -8,18 +8,8 @@ export async function seed(knex: Knex): Promise<void> {
   const cryptoService = new CryptoService()
   await knex('users').insert([
     {
-      username: 'hadi1',
-      credential: await cryptoService.encrypt('SomeRandomString1'),
-      scopes: ['portal.read'],
-    },
-    {
-      username: 'hadi2',
-      credential: await cryptoService.encrypt('SomeRandomString2'),
-      scopes: ['portal.read'],
-    },
-    {
-      username: 'hadi3',
-      credential: await cryptoService.encrypt('SomeRandomString3'),
+      username: 'guest',
+      credential: await cryptoService.encrypt('Guest123456'),
       scopes: ['portal.read'],
     },
   ])
