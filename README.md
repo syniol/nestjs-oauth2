@@ -4,8 +4,9 @@
 This is intended as a production ready demo application for OAuth 2.1 implementation using NestJS.
 
 <div style="text-align: center;">
-    <img style="max-width: 100%;" alt="NestJS OAuth 2.1 Mascot" src="https://github.com/syniol/nestjs-skeleton/blob/main/docs/logo.png?raw=true" />
+    <img style="min-width: 100%; width: 420px;" alt="NestJS OAuth 2.1 Mascot" src="https://github.com/syniol/nestjs-skeleton/blob/main/docs/logo.png?raw=true" />
 </div>
+
 
 ## Production Deployment
 todo: explain docker commands on VPS or Dedicated Server
