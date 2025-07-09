@@ -1,4 +1,4 @@
-FROM node:22-alpine as Builder
+FROM node:22-alpine
 
 COPY ./docker/prod/knex/entrypoint.sh ./var/local/app/entrypoint.sh
 

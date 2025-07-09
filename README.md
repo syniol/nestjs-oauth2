@@ -1,4 +1,4 @@
-# NestJS OAuth 2.1 Demo
+# NestJS OAuth 2.1
 ![workflow](https://github.com/syniol/nestjs-oauth2/actions/workflows/makefile.yml/badge.svg)
 
 This is intended as a production ready demo application for OAuth 2.1 implementation using NestJS.
@@ -8,12 +8,26 @@ This is intended as a production ready demo application for OAuth 2.1 implementa
 </p>
 
 
+## Component Architecture
+[port:80,443]Proxy Container <-> [port:8080]App Container <-> Relational Database & In-Memory Database (Cache) Containers 
+
+
+## Solution Architecture
+[port:80,443]NGINX Container <-> [port:8080]Node Container <-> Postgres & Redis Containers
+
+Postgres Container <- Knex Container  (Database Migration and Seeding Data)
+
+
 ## Production Deployment
-todo: explain docker commands on VPS or Dedicated Server
+You need to have a docker installation on the host machine (VPS, Dedicated Server, Cloud Private Computing). For an Ubuntu
+distros you can follow the instruction below.
 
+```bash
+todo: add commands for installing docker and docker compose
+```
 
-## Architecture
-todo:
+when installation is complete, simply clone this repository and run: `make && make up`. This will build docker images necessary
+to run the app and spins up the containers. Please look at `Makefile` to see all available commands.
 
 
 ## Initial Skeleton Build
