@@ -15,12 +15,12 @@ const config: { [key: string]: Knex.Config } = {
     },
     migrations: {
       tableName: 'migrations',
-      directory: './db/migrations',
+      directory: './src/infrastructure/db/migrations',
       extension: 'ts',
       disableTransactions: true,
     },
     seeds: {
-      directory: './db/seeds',
+      directory: './src/infrastructure/db/seeds',
     },
   },
 
@@ -38,13 +38,13 @@ const config: { [key: string]: Knex.Config } = {
     },
     migrations: {
       tableName: 'migrations',
-      directory: './db/migrations',
+      directory: './src/infrastructure/db/migrations',
       extension: 'ts',
       disableTransactions: true,
     },
-    // seeds: {
-    //   directory: './db/seeds',
-    // },
+    seeds: {
+      directory: './src/infrastructure/db/seeds',
+    },
   },
 
 }
