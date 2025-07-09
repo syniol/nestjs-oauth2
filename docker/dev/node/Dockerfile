@@ -4,4 +4,4 @@ RUN apk update  \
     && apk upgrade \
     && apk add git \
     && apk add curl \
-    && npm i -g @nestjs/cli
+    && npm i -g @nestjs/cli@11.0.7

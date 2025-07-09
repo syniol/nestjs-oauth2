@@ -57,7 +57,7 @@ curl -X GET http://127.0.0.1/healthz
 
 
 ## Authentication
-Following RFC-6749 for OAuth 2.1 for `grant_type=password`, created an endpoint to request a token to access auth 
+Following __RFC-6749__ standard for OAuth 2.1 for `grant_type=password`, created an endpoint to request a token to access auth 
 guarded endpoints utilising `AuthGuard`.
 
 __Request Example:__
@@ -83,21 +83,6 @@ __Response Example:__
 There is a CLI node.js application located at: `app/bin/key.js` that creates a secret key 
 could be utilised to decrypt and encryption of user password. Environment variable 
 `CRYPTO_SECRET_KEY` is populated via host or `.env` file at the root of docker files.
-
-
-### Todos
- * [X] Produce and return a dummy response for now and remove `void` as a return type
- * [X] Validate the input with Zod or create a value object or a combination of both
- * [X] Create a new module "Users"
- * [X] Created Database Seeds for Users in dev
- * [X] Create a database container for postgres
- * [X] Finalise ORM/ODM to use for Database Access Abstraction layer
- * [X] Create a new module "Cache" as an abstraction to Redis Connection
- * [X] Create a cache container for redis
- * [X] Create a new module "Database" as an abstraction to Knex Connection
- * [X] Create `prod` folder under `docker` for production version
- * [ ] Docker `prod` new Dockerfile to include build section for tests and etc
- * [ ] Check all todos in code ticked-off
 
 
 ##### Credits

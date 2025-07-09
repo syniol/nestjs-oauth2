@@ -24,8 +24,6 @@ services:
       dockerfile: docker/prod/node/Dockerfile
     container_name: nestjs_node
     restart: unless-stopped
-    volumes:
-      - ../../app:/var/local/app
     environment:
       NODE_ENV: production
       PORT: 8080
