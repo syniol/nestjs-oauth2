@@ -36,6 +36,7 @@ npm i nestjs-zod zod
 ## Database & ORM
 Postgres chosen and Knex for Database Abstraction Layer.
 
+__Useful Commands:__
 ```bash
 npm install nestjs-knex knex pq --save
 
@@ -85,6 +86,6 @@ could be utilised to decrypt and encryption of user password. Environment variab
 `CRYPTO_SECRET_KEY` is populated via host or `.env` file at the root of docker files.
 
 
-##### Credits
+#### Credits
 <small>Author: [Hadi Tajallaei](mailto:hadi@syniol.com)</small>
 <p><small>Copyright &copy; 2025 Syniol Limited. All rights reserved.</small></p>
