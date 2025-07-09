@@ -12,6 +12,11 @@ services:
       - 8080:8080
     volumes:
       - ../../app:/var/local/app
+    healthcheck:
+      test: curl -s -o /dev/null -w "%{http_code}" http://node:8080/healthz | grep 200 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 3
     environment:
       NODE_ENV: development
       TSC_WATCHFILE: PriorityPollingInterval

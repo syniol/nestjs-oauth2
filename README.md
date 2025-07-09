@@ -40,7 +40,7 @@ npx knex seed:run
 ## Health Check
 todo: add info about health endpoint
 ```bash
-curl -X GET http://127.0.0.1:8080/healthz
+curl -X GET http://127.0.0.1/healthz
 ```
 
 
@@ -52,7 +52,7 @@ __Request Example:__
 ```bash
 curl -d "username=guest&password=Guest123456&grant_type=password" \
  -H "Content-Type: application/x-www-form-urlencoded" \
-  -X POST http://127.0.0.1:8080/auth/token
+  -X POST http://127.0.0.1/auth/token
 ```
 
 __Response Example:__
@@ -82,7 +82,7 @@ could be utilised to decrypt and encryption of user password. Environment variab
  * [X] Finalise ORM/ODM to use for Database Access Abstraction layer
  * [X] Create a new module "Cache" as an abstraction to Redis Connection
  * [X] Create a cache container for redis
- * [ ] Create a new module "Database" as an abstraction to Knex Connection
+ * [X] Create a new module "Database" as an abstraction to Knex Connection
  * [X] Create `prod` folder under `docker` for production version
  * [ ] Docker `prod` new Dockerfile to include build section for tests and etc
  * [ ] Check all todos in code ticked-off

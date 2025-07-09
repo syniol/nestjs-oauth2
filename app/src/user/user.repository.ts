@@ -1,23 +1,22 @@
 import { Injectable } from '@nestjs/common'
-import { Knex } from 'knex'
-import { InjectConnection } from 'nestjs-knex'
 import { UserEntity } from './user.entity'
 import { CryptoEncryptedValue } from '../crypto/dto/crypto.dto'
+import { DatabaseService } from '../infrastructure/db/db.service'
 
 @Injectable()
 export class UserRepository {
-  public constructor(@InjectConnection() private readonly knex: Knex) {}
+  public constructor(private readonly databaseService: DatabaseService) {}
 
   public async findByUsername(username: string): Promise<UserEntity | undefined> {
     return this
-      .knex<UserEntity>(UserEntity.Table)
+      .databaseService.client.queryBuilder()<UserEntity>(UserEntity.Table)
       .select('*')
       .where('username', username)
       .first()
   }
 
   public async persist(user: Partial<UserEntity>): Promise<UserEntity> {
-    return this.knex.transaction(async trx => {
+    return this.databaseService.client.queryBuilder().transaction(async trx => {
       const [newUserRecord] = await trx<UserEntity>(UserEntity.Table)
         .insert(JSON.parse(JSON.stringify(user)))
         .returning<UserEntity[]>('*')
@@ -36,7 +35,7 @@ export class UserRepository {
   }
 
   public async updatePassword(username, updatedCredential: CryptoEncryptedValue): Promise<UserEntity> {
-    return this.knex.transaction( async trx => {
+    return this.databaseService.client.queryBuilder().transaction( async trx => {
       const [updatedUser] = await trx<UserEntity>('users')
         .update({
           credential: updatedCredential,
