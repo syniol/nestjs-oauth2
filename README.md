@@ -3,7 +3,9 @@
 
 This is intended as a production ready demo application for OAuth 2.1 implementation using NestJS.
 
-<img style="display: block; min-width: 100%; width: 420px; margin: 0 auto;" alt="NestJS OAuth 2.1 Mascot" src="https://github.com/syniol/nestjs-skeleton/blob/main/docs/logo.png?raw=true" />
+<div style='text-align: center;'>
+    <img style="display: block; width: 420px; margin: 0 auto;" alt="NestJS OAuth 2.1 Mascot" src="https://github.com/syniol/nestjs-skeleton/blob/main/docs/logo.png?raw=true" />
+</div>
 
 
 ## Production Deployment
