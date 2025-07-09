@@ -4,6 +4,9 @@ ENV ?= prod
 build:
 	docker compose -f ./docker/$(ENV)/docker-compose.yml build --no-cache
 
+restart:
+	docker compose -f docker/$(ENV)/docker-compose.yml up -d --no-deps
+
 up:
 	docker compose -f ./docker/$(ENV)/docker-compose.yml up -d
 
