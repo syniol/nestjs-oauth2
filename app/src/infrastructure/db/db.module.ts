@@ -17,10 +17,10 @@ import { KnexAdapter } from './knex.adapter'
           password: process.env.POSTGRES_PASSWORD,
           ssl: {
             rejectUnauthorized: false,
-          }
+          },
         },
       },
-    })
+    }),
   ],
   providers: [DatabaseService, KnexAdapter],
   exports: [DatabaseService],

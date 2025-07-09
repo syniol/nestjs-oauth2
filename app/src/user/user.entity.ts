@@ -8,7 +8,7 @@ export class UserEntity extends Entity {
     public readonly username: string,
     public readonly credential: CryptoEncryptedValue,
     public readonly scopes: string[],
-    public readonly role?: 'ADMIN' | 'CLIENT'
+    public readonly role?: 'ADMIN' | 'CLIENT',
   ) {
     super()
   }

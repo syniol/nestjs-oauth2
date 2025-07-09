@@ -10,4 +10,3 @@ export async function down(knex: Knex): Promise<void> {
   // should be used in a new migration if it needs to be dropped
   return knex.schema.dropSchema('events')
 }
-

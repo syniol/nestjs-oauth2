@@ -18,8 +18,13 @@ export enum AuthTokenGrantType {
 
 const authTokenRequestSchema = Validation.object({
   grant_type: Validation.nativeEnum(AuthTokenGrantType),
-  username: Validation.string().min(3).max(8).regex(/^[a-z0-9_.]+$/),
+  username: Validation.string()
+    .min(3)
+    .max(8)
+    .regex(/^[a-z0-9_.]+$/),
   password: Validation.string().min(6).max(32),
 })
 
-export class AuthTokenRequestDTO extends ValidationDto(authTokenRequestSchema) {}
+export class AuthTokenRequestDTO extends ValidationDto(
+  authTokenRequestSchema,
+) {}

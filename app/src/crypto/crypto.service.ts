@@ -19,10 +19,7 @@ export class CryptoService {
   }
 
   public async encrypt(plaintext: string): Promise<CryptoEncryptedValue> {
-    return this.encryptPlaintextWithSharedSecretKey(
-      plaintext,
-      this.secretKey,
-    );
+    return this.encryptPlaintextWithSharedSecretKey(plaintext, this.secretKey)
   }
 
   public decrypt(hash: CryptoEncryptedValue): Promise<CryptoDecryptedValue> {
@@ -30,20 +27,27 @@ export class CryptoService {
       CryptoService.EncryptionAlgorithm,
       this.secretKey,
       Buffer.from(hash.iv, 'hex'),
-    );
+    )
 
     const decrypted = Buffer.concat([
       decipher.update(Buffer.from(hash.content, 'base64')),
-      decipher.final()
-    ]);
+      decipher.final(),
+    ])
 
-    return Promise.resolve(decrypted.toString());
+    return Promise.resolve(decrypted.toString())
   }
 
-  private async encryptPlaintextWithSharedSecretKey(text , secretKey): Promise<CryptoEncryptedValue> {
-    const iv = randomBytes(CryptoService.EncryptionDefaultByteSize);
-    const cipher = createCipheriv(CryptoService.EncryptionAlgorithm, secretKey, iv);
-    const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
+  private async encryptPlaintextWithSharedSecretKey(
+    text,
+    secretKey,
+  ): Promise<CryptoEncryptedValue> {
+    const iv = randomBytes(CryptoService.EncryptionDefaultByteSize)
+    const cipher = createCipheriv(
+      CryptoService.EncryptionAlgorithm,
+      secretKey,
+      iv,
+    )
+    const encrypted = Buffer.concat([cipher.update(text), cipher.final()])
 
     return Promise.resolve({
       iv: iv.toString('hex'),

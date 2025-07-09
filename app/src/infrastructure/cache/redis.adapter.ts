@@ -17,7 +17,8 @@ export class RedisAdapter implements CacheClientOperations {
         this.logger.error(err)
       })
 
-      this.client.connect()
+      this.client
+        .connect()
         .then(() => {
           RedisAdapter.isConnectionEstablished = true
           this.logger.log('successfully connected to the redis instance')
@@ -28,9 +29,17 @@ export class RedisAdapter implements CacheClientOperations {
     }
   }
 
-  public async set<ValueType>(key: string, value: ValueType, opt?: CacheStorageOption): Promise<void> {
+  public async set<ValueType>(
+    key: string,
+    value: ValueType,
+    opt?: CacheStorageOption,
+  ): Promise<void> {
     if (opt?.ttl) {
-      await this.client.setEx(key, AuthToken.TokenExpiryTimeInSeconds, value as Buffer)
+      await this.client.setEx(
+        key,
+        AuthToken.TokenExpiryTimeInSeconds,
+        value as Buffer,
+      )
 
       return
     }

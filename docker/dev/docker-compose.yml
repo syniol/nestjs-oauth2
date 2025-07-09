@@ -9,18 +9,18 @@ services:
     restart: unless-stopped
     working_dir: /var/local/app
     ports:
-      - 8080:8080
+      - 80:80
     volumes:
       - ../../app:/var/local/app
     healthcheck:
-      test: curl -s -o /dev/null -w "%{http_code}" http://node:8080/healthz | grep 200 || exit 1
+      test: curl -s -o /dev/null -w "%{http_code}" http://node:80/healthz | grep 200 || exit 1
       interval: 10s
       timeout: 5s
       retries: 3
     environment:
       NODE_ENV: development
       TSC_WATCHFILE: PriorityPollingInterval
-      PORT: 8080
+      PORT: 80
       POSTGRES_HOST: postgres
       POSTGRES_USER: root
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

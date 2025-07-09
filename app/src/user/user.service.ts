@@ -8,8 +8,7 @@ export class UserService {
   public constructor(
     private readonly userRepository: UserRepository,
     private readonly cryptoService: CryptoService,
-  ) {
-  }
+  ) {}
 
   public async handleUsernameLookup(username: string): Promise<UserEntity> {
     return this.userRepository.findByUsername(username)
@@ -19,10 +18,17 @@ export class UserService {
     userEntity: UserEntity,
     plainPassword: string,
   ): Promise<boolean> {
-    return await this.cryptoService.decrypt(userEntity.credential) === plainPassword
+    return (
+      (await this.cryptoService.decrypt(userEntity.credential)) ===
+      plainPassword
+    )
   }
 
-  public async handleUserCreation(username, password: string, scopes: string[]) {
+  public async handleUserCreation(
+    username,
+    password: string,
+    scopes: string[],
+  ) {
     await this.userRepository.persist(
       new UserEntity(
         username,

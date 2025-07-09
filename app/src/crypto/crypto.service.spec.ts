@@ -15,16 +15,20 @@ describe('Crypto Service Test', () => {
   it('should encrypt successfully', async () => {
     const systemUnderTest = new CryptoService()
 
-    await expect(systemUnderTest.encrypt('Syniol Limited')).resolves.toEqual(expect.objectContaining({
-      content: expect.any(String),
-      iv: expect.any(String),
-    }))
+    await expect(systemUnderTest.encrypt('Syniol Limited')).resolves.toEqual(
+      expect.objectContaining({
+        content: expect.any(String),
+        iv: expect.any(String),
+      }),
+    )
   })
 
   it('should decrypt the encrypted value successfully', async () => {
     const systemUnderTest = new CryptoService()
 
     const actual = await systemUnderTest.encrypt('Syniol Limited')
-    await expect(systemUnderTest.decrypt(actual)).resolves.toEqual('Syniol Limited')
+    await expect(systemUnderTest.decrypt(actual)).resolves.toEqual(
+      'Syniol Limited',
+    )
   })
 })

@@ -1,11 +1,20 @@
-import { Body, Controller, Delete, HttpCode, HttpStatus, Param, Patch, Post, UseGuards } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common'
 import { UserService } from './user.service'
 import { AuthGuard } from '../auth/auth.guard'
 
 @Controller('user')
 export class UserController {
-  public constructor(private readonly userService: UserService) {
-  }
+  public constructor(private readonly userService: UserService) {}
 
   @Post()
   public async createUser(@Body() payload: any): Promise<any> {

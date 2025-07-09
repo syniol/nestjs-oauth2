@@ -8,6 +8,6 @@ export class KnexAdapter implements DatabaseOperations<Knex> {
   public constructor(@InjectConnection() public readonly knex: Knex) {}
 
   public queryBuilder(): Knex {
-    return this.knex;
+    return this.knex
   }
 }

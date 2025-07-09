@@ -1,5 +1,6 @@
 export type CryptoEncryptedValue = {
-  iv, content: string
+  iv
+  content: string
 }
 
 export type CryptoDecryptedValue = string
