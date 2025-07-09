@@ -4,7 +4,7 @@
   "description": "",
   "author": "Hadi Tajallaei from Syniol Limited <hadi@syniol.com>",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "SEE LICENSE IN ../LICENSE",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
