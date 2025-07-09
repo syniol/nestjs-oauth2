@@ -64,6 +64,24 @@ services:
     networks:
       - syniol_nestjs_oauth
 
+  knex:
+    image: syniol_knex:22
+    build:
+      context: ../..
+      dockerfile: docker/prod/knex/Dockerfile
+    container_name: nestjs_knex
+    environment:
+      NODE_ENV: production
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: nestjs-postgres-db
+      CRYPTO_SECRET_KEY: ${CRYPTO_SECRET_KEY}
+    depends_on:
+      - postgres
+    networks:
+      - syniol_nestjs_oauth
+
   redis:
     image: syniol_redis:latest
     build:
