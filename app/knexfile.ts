@@ -46,7 +46,6 @@ const config: { [key: string]: Knex.Config } = {
       directory: './src/infrastructure/db/seeds',
     },
   },
-
 }
 
 module.exports = config
