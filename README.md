@@ -1,10 +1,10 @@
 # NestJS OAuth 2.1 Demo
-![workflow](https://github.com/syniol/nestjs-skeleton/actions/workflows/makefile.yml/badge.svg)
+![workflow](https://github.com/syniol/nestjs-oauth2/actions/workflows/makefile.yml/badge.svg)
 
 This is intended as a production ready demo application for OAuth 2.1 implementation using NestJS.
 
 <p align="center">
-  <a href="https://syniol.com/" target="blank"><img src="https://github.com/syniol/nestjs-skeleton/blob/main/docs/logo.png?raw=true" width="420" alt="NestJS OAuth 2.1 Mascot" /></a>
+  <a href="https://syniol.com/" target="blank"><img src="https://github.com/syniol/nestjs-oauth2/blob/main/docs/logo.png?raw=true" width="420" alt="NestJS OAuth 2.1 Mascot" /></a>
 </p>
 
 
@@ -86,6 +86,6 @@ could be utilised to decrypt and encryption of user password. Environment variab
 `CRYPTO_SECRET_KEY` is populated via host or `.env` file at the root of docker files.
 
 
-#### Credits
+### Credits
 <small>Author: [Hadi Tajallaei](mailto:hadi@syniol.com)</small>
 <p><small>Copyright &copy; 2025 Syniol Limited. All rights reserved.</small></p>
