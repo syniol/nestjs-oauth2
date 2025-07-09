@@ -1,11 +1,12 @@
 import { Logger } from '@nestjs/common'
 import { createClient, RedisClientType } from '@redis/client'
-import { CacheClientOperations } from './cache.interface'
+import { CacheClientOperations, CacheStorageOption } from './cache.interface'
+import { AuthToken } from '../../auth/auth.token'
 
 export class RedisAdapter implements CacheClientOperations {
   private readonly logger: Logger = new Logger(RedisAdapter.name)
   private readonly client: RedisClientType
-  private static isConnectionEstablished: boolean = false;
+  private static isConnectionEstablished: boolean = false
 
   public constructor() {
     if (!RedisAdapter.isConnectionEstablished) {
@@ -27,8 +28,14 @@ export class RedisAdapter implements CacheClientOperations {
     }
   }
 
-  public async set<ValueType>(key: string, value: ValueType): Promise<void> {
-    await this.client.set(key, value as any)
+  public async set<ValueType>(key: string, value: ValueType, opt?: CacheStorageOption): Promise<void> {
+    if (opt?.ttl) {
+      await this.client.setEx(key, AuthToken.TokenExpiryTimeInSeconds, value as Buffer)
+
+      return
+    }
+
+    await this.client.set(key, value as Buffer)
   }
 
   public async get<ValueType>(key: string): Promise<ValueType> {

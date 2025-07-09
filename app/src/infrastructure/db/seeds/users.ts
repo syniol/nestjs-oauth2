@@ -1,5 +1,5 @@
 import { Knex } from 'knex'
-import { CryptoService } from '../../src/crypto/crypto.service'
+import { CryptoService } from '../../../crypto/crypto.service'
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries

@@ -1,4 +1,4 @@
-import { CacheClientOperations } from './cache.interface'
+import { CacheClientOperations, CacheStorageOption } from './cache.interface'
 import { RedisAdapter } from './redis.adapter'
 import { Injectable } from '@nestjs/common'
 
@@ -10,7 +10,11 @@ export class CacheService implements CacheClientOperations {
     this.adaptedClient = new RedisAdapter()
   }
 
-  public async set<ValueType>(key: string, value: ValueType): Promise<void> {
+  public async set<ValueType>(
+    key: string,
+    value: ValueType,
+    opt?: CacheStorageOption,
+  ): Promise<void> {
     await this.adaptedClient.set(key, value)
   }
 

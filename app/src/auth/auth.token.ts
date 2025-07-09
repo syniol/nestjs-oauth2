@@ -12,9 +12,11 @@ export class AuthToken {
   public readonly scope: string
   public readonly tokenType: AuthTokenType
 
+  public static TokenExpiryTimeInSeconds = AuthToken.MinutesInHour * AuthToken.SecondsInMinute
+
   public constructor() {
     this.accessToken = randomBytes(AuthToken.DefaultTokenByteSize).toString('base64')
-    this.tokenExpirationInSeconds = AuthToken.MinutesInHour * AuthToken.SecondsInMinute
+    this.tokenExpirationInSeconds = AuthToken.TokenExpiryTimeInSeconds
     this.refreshToken = randomBytes(AuthToken.DefaultTokenByteSize).toString('base64')
     this.scope = 'portal.readonly'
     this.tokenType = AuthTokenType.Bearer

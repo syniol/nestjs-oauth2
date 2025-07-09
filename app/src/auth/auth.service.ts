@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common'
-import { AuthTokenResponse, authTokenResponseFromToken } from './dto/auth-token-response.dto'
 import { AuthToken } from './auth.token'
+import { AuthTokenResponse, authTokenResponseFromToken } from './dto/auth-token-response.dto'
 import { AuthTokenRequestDTO } from './dto/auth-token-request.dto'
-import { UserService } from '../user/user.service'
 import { CacheService } from '../infrastructure/cache/cache.service'
+import { UserService } from '../user/user.service'
 
 @Injectable()
 export class AuthService {
@@ -31,7 +31,11 @@ export class AuthService {
       )
       if (isCredentialValid) {
         const tokenResponse = authTokenResponseFromToken(new AuthToken())
-        await this.cacheService.set(tokenResponse.access_token, foundUser.username)
+        await this.cacheService.set(
+          tokenResponse.access_token,
+          foundUser.username,
+          { ttl: AuthToken.TokenExpiryTimeInSeconds },
+        )
 
         return tokenResponse
       }

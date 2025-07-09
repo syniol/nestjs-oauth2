@@ -1,7 +1,7 @@
-import { AppEntity } from '../app.entity'
+import { Entity } from '../infrastructure/db/entity'
 import { CryptoEncryptedValue } from '../crypto/dto/crypto.dto'
 
-export class UserEntity extends AppEntity {
+export class UserEntity extends Entity {
   public static readonly Table = 'users'
 
   public constructor(
