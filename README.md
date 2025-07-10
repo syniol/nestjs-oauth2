@@ -1,7 +1,7 @@
 # NestJS OAuth 2.1
 ![workflow](https://github.com/syniol/nestjs-oauth2/actions/workflows/makefile.yml/badge.svg)
 
-This is intended as a production ready demo application for OAuth 2.1 implementation using NestJS.
+This project intended as a production ready application for OAuth 2.1 implementation using NestJS.
 
 <p align="center">
   <a href="https://syniol.com/" target="blank"><img src="https://github.com/syniol/nestjs-oauth2/blob/main/docs/logo.png?raw=true" width="420" alt="NestJS OAuth 2.1 Mascot" /></a>
@@ -19,15 +19,61 @@ Postgres Container <- Knex Container  (Database Migration and Seeding Data)
 
 
 ## Production Deployment
-You need to have a docker installation on the host machine (VPS, Dedicated Server, Cloud Private Computing). For an Ubuntu
-distros you can follow the instruction below.
+You need to have a docker installation on the host machine (VPS, Dedicated Server, 
+Cloud Private Computing). For an Ubuntu distros you can run `docker.sh` at the 
+root of `docker` folder. Please see an example below running the command.
 
 ```bash
-todo: add commands for installing docker and docker compose
+./docker/docker.sh
 ```
 
-when installation is complete, simply clone this repository and run: `make && make up`. This will build docker images necessary
-to run the app and spins up the containers. Please look at `Makefile` to see all available commands.
+when installation is complete, simply clone this repository on the remote host.
+
+
+### SSL and NGINX Configuration
+There an SSL configuration inside the NGINX `conf` file but is commented out. This file 
+is copied during built inside the NGINX Docker image, and it could be found 
+at: `/docker/prod/nginx/nginx.conf`.
+
+```editorconfig
+#         listen 443 ssl;
+#         server_name *.syniol.com;
+#         ssl_certificate       /usr/.ssl/fullchain.pem;
+#         ssl_certificate_key   /usr/.ssl/privkey.pem;
+```
+
+### Create SSL with Certbot
+You could set up your certificates with a Free and recognised SSL 
+authority Certbot.
+
+__Verification running on a remote host:__
+```bash
+# Verification Server for Certbot
+docker run --rm --name cert-http-server \
+-v "$(pwd)":/usr/share/nginx/html:ro \
+-p 80:80 \
+-d nginx:latest
+```
+
+```bash
+# TLS Cert for NGINX
+docker run -it --rm --name certbot \
+-v "/etc/letsencrypt:/etc/letsencrypt" \
+-v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
+certbot/certbot certonly -a manual -i nginx -d api.yourdomain.com
+```
+When process is complete, you will need to copy generated certificate two files 
+inside the NGINX docker image located at: `docker/prod/nginx/`
+ * __fullchain.pem__
+ * __privkey.pem__
+
+> You could also ignore SSL configuration step and always serve on port 80 (http)
+
+
+### Up and Running with Docker
+It's simple, just run `make && make up`. This will build docker images necessary
+to run the app and spins up the containers. Please look at `Makefile` to see all 
+available commands.
 
 
 ## Initial Skeleton Build
