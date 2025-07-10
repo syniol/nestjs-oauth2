@@ -10,12 +10,12 @@ This project intended as a production ready application for OAuth 2.1 implementa
 
 ## Component Architecture
 <p align="center">
-  <a href="https://syniol.com/" target="blank"><img src="https://github.com/syniol/nestjs-oauth2/blob/main/docs/component-architecture.jpg?raw=true" width="100%" alt="NestJS OAuth 2.1 Mascot" /></a>
+  <a href="https://syniol.com/" target="blank"><img src="https://github.com/syniol/nestjs-oauth2/blob/main/docs/component-architecture.jpg?raw=true" width="70%" alt="NestJS OAuth 2.1 Mascot" /></a>
 </p>
 
 ## Solution Architecture
 <p align="center">
-  <a href="https://syniol.com/" target="blank"><img src="https://github.com/syniol/nestjs-oauth2/blob/main/docs/solution-architecture.jpg?raw=true" width="100%" alt="NestJS OAuth 2.1 Mascot" /></a>
+  <a href="https://syniol.com/" target="blank"><img src="https://github.com/syniol/nestjs-oauth2/blob/main/docs/solution-architecture.jpg?raw=true" width="70%" alt="NestJS OAuth 2.1 Mascot" /></a>
 </p>
 
 
