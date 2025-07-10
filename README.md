@@ -18,8 +18,6 @@ This project intended as a production ready application for OAuth 2.1 implementa
   <a href="https://syniol.com/" target="blank"><img src="https://github.com/syniol/nestjs-oauth2/blob/main/docs/solution-architecture.jpg?raw=true" width="100%" alt="NestJS OAuth 2.1 Mascot" /></a>
 </p>
 
-Postgres Container <- Knex Container  (Database Migration and Seeding Data)
-
 
 ## Software Architecture
 It uses a Modular, Hexagon, Component-based Architecture, and it utilises Rich-Domain Design. 
@@ -39,7 +37,6 @@ root of `docker` folder. Please see an example below running the command.
 ```
 
 when installation is complete, simply clone this repository on the remote host.
-
 
 ### SSL and NGINX Configuration
 There an SSL configuration inside the NGINX `conf` file but is commented out. This file 
