@@ -14,7 +14,9 @@ This project intended as a production ready application for OAuth 2.1 implementa
 </p>
 
 ## Solution Architecture
-[port:80,443]NGINX Container <-> [port:8080]Node Container <-> Postgres & Redis Containers
+<p align="center">
+  <a href="https://syniol.com/" target="blank"><img src="https://github.com/syniol/nestjs-oauth2/blob/main/docs/solution-architecture.jpg?raw=true" width="100%" alt="NestJS OAuth 2.1 Mascot" /></a>
+</p>
 
 Postgres Container <- Knex Container  (Database Migration and Seeding Data)
 
