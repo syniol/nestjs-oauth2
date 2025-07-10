@@ -9,8 +9,9 @@ This project intended as a production ready application for OAuth 2.1 implementa
 
 
 ## Component Architecture
-[port:80,443]Proxy Container <-> [port:8080]App Container <-> Relational Database & In-Memory Database (Cache) Containers 
-
+<p align="center">
+  <a href="https://syniol.com/" target="blank"><img src="https://github.com/syniol/nestjs-oauth2/blob/main/docs/component-architecture.png?raw=true" width="100%" alt="NestJS OAuth 2.1 Mascot" /></a>
+</p>
 
 ## Solution Architecture
 [port:80,443]NGINX Container <-> [port:8080]Node Container <-> Postgres & Redis Containers
@@ -63,6 +64,7 @@ docker run --rm --name cert-http-server \
 -d nginx:latest
 ```
 
+__Producing Certificates for NGINX__
 ```bash
 # TLS Cert for NGINX
 docker run -it --rm --name certbot \
@@ -70,6 +72,7 @@ docker run -it --rm --name certbot \
 -v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
 certbot/certbot certonly -a manual -i nginx -d api.yourdomain.com
 ```
+
 When process is complete, you will need to copy generated certificate two files 
 inside the NGINX docker image located at: `docker/prod/nginx/`
  * __fullchain.pem__
@@ -124,11 +127,9 @@ __Response Example:__
 ```
 
 
-
-
 ## Database & ORM
 Due to capability of Postgres database for serving both document based and relational. I
-pick Postgres and `Knex.js` as database and SQL query builder, database migration, and
+picked Postgres and `Knex.js` as database and SQL query builder, database migration, and
 data seeder.
 
 __Knex.js Useful Commands:__
