@@ -4,7 +4,7 @@
 This project intended as a production ready application for OAuth 2.1 implementation using NestJS.
 
 <p align="center">
-  <a href="https://syniol.com/" target="blank"><img src="https://github.com/syniol/nestjs-oauth2/blob/main/docs/logo.png?raw=true" width="420" alt="NestJS OAuth 2.1 Mascot" /></a>
+  <a href="https://syniol.com/" target="blank"><img src="https://github.com/syniol/nestjs-oauth2/blob/main/docs/logo.png?raw=true" width="60%" alt="NestJS OAuth 2.1 Mascot" /></a>
 </p>
 
 
@@ -16,6 +16,14 @@ This project intended as a production ready application for OAuth 2.1 implementa
 [port:80,443]NGINX Container <-> [port:8080]Node Container <-> Postgres & Redis Containers
 
 Postgres Container <- Knex Container  (Database Migration and Seeding Data)
+
+
+## Software Architecture
+It uses a Modular, Hexagon, Component-based Architecture, and it utilises Rich-Domain Design. 
+In cases where bounded context extended to two or more components, component are imported as 
+required. One of major component is `infrastructure`, by importing this component, you will 
+import all APIs and connections for __Postgres__ and __Redis__. However, you could also just 
+import `CacheModule` or `DatabaseModule` individually.
 
 
 ## Production Deployment
@@ -42,7 +50,7 @@ at: `/docker/prod/nginx/nginx.conf`.
 #         ssl_certificate_key   /usr/.ssl/privkey.pem;
 ```
 
-### Create SSL with Certbot
+### SSL with Certbot
 You could set up your certificates with a Free and recognised SSL 
 authority Certbot.
 
@@ -70,56 +78,32 @@ inside the NGINX docker image located at: `docker/prod/nginx/`
 > You could also ignore SSL configuration step and always serve on port 80 (http)
 
 
+## Encryption Key
+There is a CLI node.js application located at: `app/bin/key.js` that creates a secret key
+could be utilised to decrypt and encryption of passwords. Environment variable
+`CRYPTO_SECRET_KEY` is populated via host or `.env` file at the root of docker files. This 
+will differ for each environment. You could generate a new shared key and modify the exiting 
+key located at: `docker/prod/.env`.
+
+
 ### Up and Running with Docker
 It's simple, just run `make && make up`. This will build docker images necessary
 to run the app and spins up the containers. Please look at `Makefile` to see all 
 available commands.
 
 
-## Initial Skeleton Build
-In order to create a new skeleton application, I ran the following inside the node.js docker container.
-
-```bash
-nest new app
-```
-It creates a new folder named `app` with all example files and an endpoint `/` with `GET` method for Hello World message.
-
-
-## Data Transfer Objects (DTO) Validation
-In order to validate the incoming requests we use Zod and its extension for NestJS. Please [read more here](https://www.npmjs.com/package/nestjs-zod).
-
-```bash
-npm i nestjs-zod zod
-```
-
-
-## Database & ORM
-Postgres chosen and Knex for Database Abstraction Layer.
-
-__Useful Commands:__
-```bash
-npm install nestjs-knex knex pq --save
-
-npx knex init -x ts
-
-npx knex migrate:make <migration_name> -x ts
-npx knex migrate:latest
-
-npx knex seed:make <seed_name> -x ts
-npx knex seed:run
-```
-
-
 ## Health Check
-todo: add info about health endpoint
+Health check endpoint should always return http status code `200` _OK_. This is
+used inside docker-compose for determination of status of container.
+
 ```bash
 curl -X GET http://127.0.0.1/healthz
 ```
 
 
 ## Authentication
-Following __RFC-6749__ standard for OAuth 2.1 for `grant_type=password`, created an endpoint to request a token to access auth 
-guarded endpoints utilising `AuthGuard`.
+Following __RFC-6749__ standard for OAuth 2.1 for `grant_type=password`, created an endpoint
+to request a token to access auth guarded endpoints utilising `AuthGuard`.
 
 __Request Example:__
 ```bash
@@ -140,10 +124,42 @@ __Response Example:__
 ```
 
 
-## Encryption
-There is a CLI node.js application located at: `app/bin/key.js` that creates a secret key 
-could be utilised to decrypt and encryption of user password. Environment variable 
-`CRYPTO_SECRET_KEY` is populated via host or `.env` file at the root of docker files.
+
+
+## Database & ORM
+Due to capability of Postgres database for serving both document based and relational. I
+pick Postgres and `Knex.js` as database and SQL query builder, database migration, and
+data seeder.
+
+__Knex.js Useful Commands:__
+```bash
+npm install nestjs-knex knex pq --save
+
+npx knex init -x ts
+
+npx knex migrate:make <migration_name> -x ts
+npx knex migrate:latest
+
+npx knex seed:make <seed_name> -x ts
+npx knex seed:run
+```
+
+
+## Initial Skeleton Build
+In order to create a new skeleton application, I ran the following inside the node.js docker container.
+
+```bash
+nest new app
+```
+It creates a new folder named `app` with all example files and an endpoint `/` with `GET` method for Hello World message.
+
+
+## Data Transfer Objects (DTO) Validation
+In order to validate the incoming requests we use Zod and its extension for NestJS. Please [read more here](https://www.npmjs.com/package/nestjs-zod).
+
+```bash
+npm i nestjs-zod zod
+```
 
 
 ### Credits
